@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}رزرو نوبت | {{ SALON.name }}{% endblock %}
+{% block content %}
+<section class="container-x py-12">
+  <div class="mb-8">
+    <span class="chip">رزرو آنلاین</span>
+    <h1 class="mt-4 text-3xl font-extrabold sm:text-4xl">{{ user.first_name|default:user.username }} جان، نوبتت را انتخاب کن</h1>
+  </div>
+  <div id="booking-root" data-csrf="{{ csrf_token }}" data-service="{{ initial_service }}">
+    <div class="card h-72 animate-pulse bg-rose-50/60"></div>
+    <noscript><p class="mt-4 text-rose-700">برای رزرو نوبت، جاوااسکریپت مرورگر باید فعال باشد.</p></noscript>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}{% load static %}<script type="module" src="{% static 'site/islands.js' %}"></script>{% endblock %}

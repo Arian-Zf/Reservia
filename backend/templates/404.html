@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}صفحه پیدا نشد | {{ SALON.name }}{% endblock %}
+{% block content %}
+<section class="container-x grid min-h-[60vh] place-items-center text-center">
+  <div>
+    <p class="text-7xl font-extrabold text-gradient">۴۰۴</p>
+    <p class="mt-4 text-lg text-plum-900/70">صفحه‌ای که دنبالش بودید پیدا نشد.</p>
+    <a href="{% url 'home' %}" class="btn btn-primary mt-8">بازگشت به خانه</a>
+  </div>
+</section>
+{% endblock %}

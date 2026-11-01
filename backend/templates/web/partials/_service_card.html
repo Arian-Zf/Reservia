@@ -1,0 +1,12 @@
+{% load jalali %}
+<article class="card group flex flex-col p-6 transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-rose-200/50">
+  <span class="grid h-12 w-12 place-items-center rounded-2xl bg-rose-50 text-rose-500 transition group-hover:bg-rose-500 group-hover:text-white">
+    {% include "web/partials/_icon.html" with name=s.icon %}
+  </span>
+  <h3 class="mt-5 text-lg font-bold">{{ s.name }}</h3>
+  {% if s.description %}<p class="mt-2 flex-1 text-sm leading-7 text-plum-900/65">{{ s.description }}</p>{% else %}<span class="flex-1"></span>{% endif %}
+  <div class="mt-5 flex items-center justify-between border-t border-rose-100 pt-4">
+    {% if s.price_from %}<p class="text-sm text-plum-900/60">از <span class="font-bold text-plum-900">{{ s.price_from|fa_money }}</span> تومان</p>{% else %}<span></span>{% endif %}
+    <a href="{% url 'book' %}?service={{ s.id }}" class="text-sm font-bold text-rose-600 hover:text-rose-700">رزرو ←</a>
+  </div>
+</article>

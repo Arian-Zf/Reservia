@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load jalali %}
+{% block title %}نوبت‌های من | {{ SALON.name }}{% endblock %}
+{% block content %}
+<section class="container-x max-w-3xl py-12">
+  <h1 class="text-3xl font-extrabold">نوبت‌های من</h1>
+
+  <h2 class="mt-10 text-lg font-bold">نوبت‌های پیش‌رو</h2>
+  <div class="mt-4 space-y-3">
+    {% for a in upcoming %}
+    <div class="card flex flex-wrap items-center justify-between gap-4 p-5">
+      <div>
+        <p class="font-bold">{{ a.service.name }}</p>
+        <p class="mt-1 text-sm text-plum-900/60">{{ a.start_time|jdate }} — ساعت {{ a.start_time|jtime }}</p>
+      </div>
+      <form method="post" action="{% url 'cancel_appointment' a.id %}">{% csrf_token %}
+        <button class="rounded-full border border-rose-200 px-4 py-1.5 text-sm text-rose-600 transition hover:bg-rose-50">لغو نوبت</button>
+      </form>
+    </div>
+    {% empty %}
+    <div class="card p-8 text-center">
+      <p class="text-plum-900/60">نوبت فعالی ندارید.</p>
+      <a href="{% url 'book' %}" class="btn btn-primary mt-5">رزرو نوبت جدید</a>
+    </div>
+    {% endfor %}
+  </div>
+
+  {% if past %}
+  <h2 class="mt-12 text-lg font-bold">سابقه</h2>
+  <div class="mt-4 space-y-3">
+    {% for a in past %}
+    <div class="card flex items-center justify-between gap-4 p-5 opacity-80">
+      <div>
+        <p class="font-medium">{{ a.service.name }}</p>
+        <p class="mt-1 text-sm text-plum-900/60">{{ a.start_time|jdate }} — {{ a.start_time|jtime }}</p>
+      </div>
+      <span class="chip {% if a.status == 'cancelled' %}!bg-slate-100 !text-slate-500{% endif %}">{% if a.status == 'cancelled' %}لغو شده{% else %}انجام شده{% endif %}</span>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+</section>
+{% endblock %}

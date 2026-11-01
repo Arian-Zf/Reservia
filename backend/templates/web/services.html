@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}خدمات | {{ SALON.name }}{% endblock %}
+{% block content %}
+<section class="container-x py-16">
+  <div class="mx-auto max-w-2xl text-center">
+    <span class="chip">خدمات</span>
+    <h1 class="mt-5 text-4xl font-extrabold">خدمات سالن {{ SALON.name }}</h1>
+    <p class="mt-4 leading-8 text-plum-900/65">قیمت‌ها از مبلغ پایه شروع می‌شود و بسته به نوع کار و مشاوره‌ی حضوری نهایی می‌شود.</p>
+  </div>
+  <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+    {% for s in services %}{% include "web/partials/_service_card.html" %}
+    {% empty %}<p class="card col-span-full p-8 text-center text-plum-900/60">هنوز خدمتی ثبت نشده است.</p>{% endfor %}
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,35 @@
+@import "@fontsource-variable/vazirmatn";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body {
+    background-image:
+      radial-gradient(60rem 30rem at 100% -10%, rgb(255 228 230 / .55), transparent 60%),
+      radial-gradient(50rem 30rem at -10% 40%, rgb(254 243 199 / .35), transparent 60%);
+    background-attachment: fixed;
+  }
+  ::selection { background: #fecdd3; }
+  summary::-webkit-details-marker { display: none; }
+}
+
+@layer components {
+  .container-x { @apply mx-auto w-full max-w-6xl px-5; }
+  .btn { @apply inline-flex items-center justify-center rounded-full px-7 py-3 font-bold transition duration-200 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-rose-200 disabled:cursor-not-allowed disabled:opacity-40; }
+  .btn-primary { @apply bg-gradient-to-l from-rose-500 to-rose-400 text-white shadow-lg shadow-rose-300/50 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-rose-300/60; }
+  .btn-ghost { @apply border border-rose-200 bg-white/60 text-plum-900 hover:bg-rose-50; }
+  .card { @apply rounded-3xl border border-rose-100/80 bg-white/80 shadow-sm shadow-rose-100/60 backdrop-blur; }
+  .chip { @apply inline-flex items-center rounded-full bg-rose-100/80 px-4 py-1.5 text-xs font-bold text-rose-700; }
+  .text-gradient { @apply bg-gradient-to-l from-rose-500 to-amber-600 bg-clip-text text-transparent; }
+  .nav-link { @apply inline-flex items-center rounded-full px-4 py-2 text-sm font-medium text-plum-900/80 transition hover:bg-rose-50 hover:text-rose-600; }
+  .menu-item { @apply block rounded-xl px-4 py-2.5 text-sm text-plum-900/85 hover:bg-rose-50; }
+  .step-no { @apply grid h-10 w-10 place-items-center rounded-full bg-gradient-to-br from-rose-400 to-rose-500 font-extrabold text-white shadow-md shadow-rose-300/50; }
+  .faq { @apply card px-6 py-4 open:bg-white; }
+  .faq summary { @apply flex cursor-pointer list-none items-center justify-between font-bold; }
+  .faq summary::after { content: "+"; @apply text-2xl font-normal text-rose-500 transition; }
+  .faq[open] summary::after { content: "–"; }
+  .faq p { @apply mt-3 text-sm leading-8 text-plum-900/70; }
+}

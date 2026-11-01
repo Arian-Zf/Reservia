@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% block content %}
+{# متن‌ها و عددهای این صفحه نمونه هستند؛ با اطلاعات واقعی سالن جایگزین کنید. #}
+
+<!-- Hero -->
+<section class="relative overflow-hidden">
+  <div class="pointer-events-none absolute -top-32 -start-32 h-96 w-96 rounded-full bg-rose-200/60 blur-3xl"></div>
+  <div class="pointer-events-none absolute top-40 -end-24 h-80 w-80 rounded-full bg-amber-100/80 blur-3xl"></div>
+  <div class="container-x relative grid items-center gap-14 py-16 lg:grid-cols-2 lg:py-24">
+    <div class="animate-fade-up motion-reduce:animate-none">
+      <span class="chip">رزرو آنلاین · بدون تماس تلفنی</span>
+      <h1 class="mt-6 text-4xl font-extrabold leading-[1.35] sm:text-5xl lg:text-6xl">زیبایی‌ات را به <span class="text-gradient">دستانی مطمئن</span> بسپار</h1>
+      <p class="mt-6 max-w-xl text-lg leading-9 text-plum-900/70">از رنگ و مدل مو تا ناخن، پوست و آرایش عروس؛ نوبتت را در چند ثانیه ثبت کن و فقط لذتِ مراقبت از خودت را تجربه کن.</p>
+      <div class="mt-9 flex flex-wrap gap-3">
+        <a href="{% url 'book' %}" class="btn btn-primary">رزرو نوبت</a>
+        <a href="{% url 'services' %}" class="btn btn-ghost">مشاهده خدمات</a>
+      </div>
+      <dl class="mt-12 grid max-w-md grid-cols-3 gap-6 border-t border-rose-100 pt-8">
+        <div><dt class="text-xs text-plum-900/55">سابقه فعالیت</dt><dd class="mt-1 text-2xl font-extrabold">+۱۰ سال</dd></div>
+        <div><dt class="text-xs text-plum-900/55">مشتری راضی</dt><dd class="mt-1 text-2xl font-extrabold">+۵٬۰۰۰</dd></div>
+        <div><dt class="text-xs text-plum-900/55">متخصص</dt><dd class="mt-1 text-2xl font-extrabold">۱۲ نفر</dd></div>
+      </dl>
+    </div>
+
+    <div class="relative mx-auto w-full max-w-md animate-fade-up [animation-delay:150ms] motion-reduce:animate-none">
+      <div class="aspect-[4/5] rounded-t-[999px] rounded-b-[2.5rem] bg-gradient-to-b from-rose-200 via-rose-100 to-amber-100 p-3 shadow-2xl shadow-rose-300/50">
+        <div class="grid h-full place-items-center rounded-t-[999px] rounded-b-[2rem] bg-gradient-to-br from-white/80 via-white/30 to-transparent ring-1 ring-white/80">
+          <svg viewBox="0 0 200 200" class="h-64 w-64" aria-hidden="true">
+            <g class="fill-rose-400/40">
+              <ellipse cx="100" cy="52" rx="16" ry="42"/><ellipse cx="100" cy="52" rx="16" ry="42" transform="rotate(45 100 100)"/>
+              <ellipse cx="100" cy="52" rx="16" ry="42" transform="rotate(90 100 100)"/><ellipse cx="100" cy="52" rx="16" ry="42" transform="rotate(135 100 100)"/>
+              <ellipse cx="100" cy="52" rx="16" ry="42" transform="rotate(180 100 100)"/><ellipse cx="100" cy="52" rx="16" ry="42" transform="rotate(225 100 100)"/>
+              <ellipse cx="100" cy="52" rx="16" ry="42" transform="rotate(270 100 100)"/><ellipse cx="100" cy="52" rx="16" ry="42" transform="rotate(315 100 100)"/>
+            </g>
+            <circle cx="100" cy="100" r="16" class="fill-amber-300"/>
+            <circle cx="100" cy="100" r="7" class="fill-amber-100"/>
+          </svg>
+        </div>
+      </div>
+      <div class="absolute -start-4 top-20 animate-float rounded-2xl bg-white/90 px-4 py-3 shadow-xl shadow-rose-200/60 backdrop-blur motion-reduce:animate-none sm:-start-10">
+        <p class="text-xs text-plum-900/55">رزرو آنلاین</p><p class="text-sm font-bold">فقط در ۳ مرحله ✦</p>
+      </div>
+      <div class="absolute -end-4 bottom-16 animate-float rounded-2xl bg-white/90 px-4 py-3 shadow-xl shadow-rose-200/60 backdrop-blur [animation-delay:2s] motion-reduce:animate-none sm:-end-10">
+        <p class="text-xs text-plum-900/55">رضایت مشتریان</p><p class="text-sm font-bold text-amber-600">★★★★★</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Services -->
+<section class="container-x py-16">
+  <div class="mx-auto max-w-2xl text-center">
+    <span class="chip">خدمات ما</span>
+    <h2 class="mt-5 text-3xl font-extrabold sm:text-4xl">هر آنچه برای درخشیدن لازم داری</h2>
+    <p class="mt-4 leading-8 text-plum-900/65">با محصولات اصل و ابزار کاملاً ضدعفونی‌شده، هر خدمت را مطابق سلیقه و نیاز تو انجام می‌دهیم.</p>
+  </div>
+  <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+    {% for s in services %}{% include "web/partials/_service_card.html" %}
+    {% empty %}<p class="card col-span-full p-8 text-center text-plum-900/60">به‌زودی خدمات اضافه می‌شود.</p>{% endfor %}
+  </div>
+  <div class="mt-10 text-center"><a href="{% url 'services' %}" class="btn btn-ghost">همه خدمات</a></div>
+</section>
+
+<!-- Why us -->
+<section class="bg-gradient-to-b from-rose-50/70 to-transparent py-20">
+  <div class="container-x">
+    <h2 class="mx-auto max-w-xl text-center text-3xl font-extrabold sm:text-4xl">چرا {{ SALON.name }}؟</h2>
+    <div class="mt-12 grid gap-6 md:grid-cols-3">
+      <div class="card p-8 text-center"><span class="mx-auto grid h-14 w-14 place-items-center rounded-full bg-rose-100 text-rose-600">{% include "web/partials/_icon.html" with name="bride" %}</span><h3 class="mt-5 text-lg font-bold">تیم متخصص و باتجربه</h3><p class="mt-3 text-sm leading-7 text-plum-900/65">آرایشگران و متخصصان ما مدام آموزش می‌بینند تا جدیدترین روش‌ها را با دقت اجرا کنند.</p></div>
+      <div class="card p-8 text-center"><span class="mx-auto grid h-14 w-14 place-items-center rounded-full bg-rose-100 text-rose-600">{% include "web/partials/_icon.html" with name="skin" %}</span><h3 class="mt-5 text-lg font-bold">محصولات اصل و ایمن</h3><p class="mt-3 text-sm leading-7 text-plum-900/65">فقط برندهای معتبر و دارای مجوز؛ چون پوست و موی تو ارزش بیشتری دارد.</p></div>
+      <div class="card p-8 text-center"><span class="mx-auto grid h-14 w-14 place-items-center rounded-full bg-rose-100 text-rose-600">{% include "web/partials/_icon.html" with name="spa" %}</span><h3 class="mt-5 text-lg font-bold">بدون معطلی و انتظار</h3><p class="mt-3 text-sm leading-7 text-plum-900/65">نوبتت را آنلاین رزرو می‌کنی و سر ساعت پذیرش می‌شوی؛ همین.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Process -->
+<section class="container-x py-16">
+  <div class="mx-auto max-w-2xl text-center">
+    <span class="chip">چطور کار می‌کند؟</span>
+    <h2 class="mt-5 text-3xl font-extrabold sm:text-4xl">رزرو نوبت در سه قدم</h2>
+  </div>
+  <ol class="mt-12 grid gap-6 md:grid-cols-3">
+    <li class="card relative p-8"><span class="step-no">۱</span><h3 class="mt-4 font-bold">خدمت را انتخاب کن</h3><p class="mt-2 text-sm leading-7 text-plum-900/65">از بین خدمات سالن، چیزی که می‌خواهی را برگزین.</p></li>
+    <li class="card relative p-8"><span class="step-no">۲</span><h3 class="mt-4 font-bold">روز و ساعت را بزن</h3><p class="mt-2 text-sm leading-7 text-plum-900/65">زمان‌های خالی را همان لحظه می‌بینی و مناسب‌ترین را انتخاب می‌کنی.</p></li>
+    <li class="card relative p-8"><span class="step-no">۳</span><h3 class="mt-4 font-bold">ثبت و بیا!</h3><p class="mt-2 text-sm leading-7 text-plum-900/65">نوبتت ثبت می‌شود و هر وقت خواستی از «نوبت‌های من» لغوش می‌کنی.</p></li>
+  </ol>
+</section>
+
+<!-- Testimonials -->
+<section class="container-x py-12">
+  <h2 class="text-center text-3xl font-extrabold sm:text-4xl">نظر مهمان‌های ما</h2>
+  <div class="mt-12 grid gap-6 md:grid-cols-3">
+    <figure class="card p-8"><p class="text-amber-500">★★★★★</p><blockquote class="mt-4 text-sm leading-8 text-plum-900/75">رنگ مو دقیقاً همونی شد که می‌خواستم. برخورد پرسنل هم عالی بود.</blockquote><figcaption class="mt-5 text-sm font-bold">نگار ـ مشتری رنگ مو</figcaption></figure>
+    <figure class="card p-8"><p class="text-amber-500">★★★★★</p><blockquote class="mt-4 text-sm leading-8 text-plum-900/75">آرایش عروسم تا آخر شب ماندگار بود. ممنون از دقت و حوصله‌ی تیم.</blockquote><figcaption class="mt-5 text-sm font-bold">سحر ـ عروس</figcaption></figure>
+    <figure class="card p-8"><p class="text-amber-500">★★★★★</p><blockquote class="mt-4 text-sm leading-8 text-plum-900/75">رزرو آنلاین واقعاً راحته؛ دیگه لازم نیست تلفنی هماهنگ کنم.</blockquote><figcaption class="mt-5 text-sm font-bold">مریم ـ مشتری ناخن</figcaption></figure>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="container-x py-16">
+  <div class="mx-auto max-w-3xl">
+    <h2 class="text-center text-3xl font-extrabold sm:text-4xl">سوالات متداول</h2>
+    <div class="mt-10 space-y-3">
+      <details class="faq"><summary>چطور نوبت بگیرم؟</summary><p>وارد حساب کاربری شوید، خدمت و زمان را انتخاب کنید و دکمه‌ی ثبت نوبت را بزنید.</p></details>
+      <details class="faq"><summary>می‌توانم نوبتم را لغو کنم؟</summary><p>بله، از بخش «نوبت‌های من» تا قبل از زمان نوبت می‌توانید آن را لغو کنید.</p></details>
+      <details class="faq"><summary>چند نوبت فعال می‌توانم داشته باشم؟</summary><p>برای اینکه همه‌ی مشتری‌ها فرصت رزرو داشته باشند، حداکثر ۳ نوبت فعال همزمان ممکن است.</p></details>
+      <details class="faq"><summary>ساعت کاری سالن چگونه است؟</summary><p>{{ SALON.hours }}</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="container-x pt-8">
+  <div class="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-plum-800 to-plum-900 px-8 py-16 text-center text-white">
+    <div class="pointer-events-none absolute -top-20 -start-20 h-64 w-64 rounded-full bg-rose-400/30 blur-3xl"></div>
+    <div class="pointer-events-none absolute -bottom-24 -end-16 h-64 w-64 rounded-full bg-amber-300/20 blur-3xl"></div>
+    <h2 class="relative text-3xl font-extrabold sm:text-4xl">آماده‌ای برای یک حال خوب؟</h2>
+    <p class="relative mx-auto mt-4 max-w-lg leading-8 text-rose-100/80">همین حالا نوبتت را رزرو کن؛ زمان‌های خالی زود پر می‌شوند.</p>
+    <a href="{% url 'book' %}" class="btn relative mt-8 bg-white text-plum-900 hover:bg-rose-50">رزرو نوبت</a>
+  </div>
+</section>
+{% endblock %}
