@@ -1,48 +1,74 @@
-# سایت سالن زیبایی + رزرو آنلاین نوبت
+# Beauty Salon Website + Online Appointment Booking
 
-Django (قالب‌های HTML) + Tailwind | React فقط برای صفحه‌ی رزرو | Postgres | Docker
+Django (HTML Templates) + Tailwind | React only for the booking page | PostgreSQL | Docker
 
-## ساختار
-- `backend/templates/` صفحه‌های HTML (با Tailwind) — بیشتر کار ظاهری اینجاست
-- `backend/web/` ویوها، فرم ورود/ثبت‌نام، فیلتر تاریخ شمسی
-- `backend/booking/` مدل‌ها و API رزرو
-- `frontend/src/` استایل Tailwind (`styles.css`) و تنها کد React (`Booking.jsx`)
+## Project Structure
 
-بیلد فرانت دو فایل می‌سازد: `style.css` (همه‌ی صفحه‌ها) و `islands.js` (فقط /book/).
+- `backend/templates/` – HTML pages styled with Tailwind. Most of the UI and visual design work happens here.
+- `backend/web/` – Views, login/registration forms, and Jalali date filtering.
+- `backend/booking/` – Booking models and API.
+- `frontend/src/` – Tailwind styles (`styles.css`) and the only React component (`Booking.jsx`).
 
-## اجرا با Docker
+The frontend build generates two files: `style.css` (used across all pages) and `islands.js` (used only on `/book/`).
+
+## Running with Docker
+
 ```bash
-cp .env.example .env        # SECRET_KEY و رمز دیتابیس را عوض کنید
+cp .env.example .env        # Change SECRET_KEY and database password
 docker compose up -d --build --remove-orphans
 docker compose exec backend python manage.py createsuperuser
-docker compose exec backend python manage.py seed_demo   # خدمات نمونه (اختیاری)
+docker compose exec backend python manage.py seed_demo   # Sample services (optional)
 ```
-سایت: http://localhost — ادمین: http://localhost/admin/
 
-## توسعه‌ی لوکال بدون Docker
+Website: http://localhost  
+Admin panel: http://localhost/admin/
+
+## Local Development Without Docker
+
 ```bash
-cd frontend && npm install && npm run watch        # ترمینال ۱: بیلد خودکار CSS/JS
+cd frontend && npm install && npm run watch        # Terminal 1: Automatic CSS/JS build
+
 cd backend && pip install -r requirements.txt
-export DJANGO_DEBUG=true && python manage.py migrate && python manage.py runserver   # ترمینال ۲
+
+export DJANGO_DEBUG=true && python manage.py migrate && python manage.py runserver   # Terminal 2
 ```
 
-## پروداکشن (HTTPS)
-پورت را در docker-compose به `127.0.0.1:8000:8000` تغییر دهید و جلوی آن Caddy بگذارید:
-```
+## Production Deployment (HTTPS)
+
+Change the port mapping in `docker-compose.yml` to `127.0.0.1:8000:8000` and put Caddy in front of it:
+
+```caddy
 yourdomain.com {
     reverse_proxy localhost:8000
 }
 ```
-در `.env`: `DJANGO_HTTPS=true`، `DJANGO_ALLOWED_HOSTS`، `DJANGO_CSRF_TRUSTED_ORIGINS=https://yourdomain.com`،
-`DRF_NUM_PROXIES=1` و بعد از اطمینان `DJANGO_HSTS_SECONDS=31536000`.
 
-## امنیت
-- ورود با session و کوکی HttpOnly/Secure؛ CSRF روی همه‌ی فرم‌ها و API
-- CSP سخت‌گیرانه (بدون inline script/style و بدون CDN بیرونی؛ فونت هم self-host)
-- محدودیت تعداد تلاش برای ورود/ثبت‌نام و رزرو
-- هر کاربر فقط نوبت‌های خودش را می‌بیند/لغو می‌کند
-- جلوگیری از رزرو دوباره‌ی یک زمان با UniqueConstraint دیتابیس
-- کانتینر با کاربر غیر root
+In `.env`, configure:
 
-## قدم‌های بعدی
-Redis برای rate limit، پیامک یادآوری، چند ارائه‌دهنده/پرسنل، گالری نمونه‌کار (آپلود عکس)، بکاپ دیتابیس.
+```env
+DJANGO_HTTPS=true
+DJANGO_ALLOWED_HOSTS=yourdomain.com
+DJANGO_CSRF_TRUSTED_ORIGINS=https://yourdomain.com
+DRF_NUM_PROXIES=1
+DJANGO_HSTS_SECONDS=31536000
+```
+
+Set `DJANGO_HSTS_SECONDS` after verifying that HTTPS is working correctly.
+
+## Security
+
+- Session-based authentication with HttpOnly/Secure cookies.
+- CSRF protection on all forms and API endpoints.
+- Strict Content Security Policy (CSP), with no inline scripts/styles or external CDNs. Fonts are self-hosted.
+- Rate limiting for login, registration, and booking attempts.
+- Users can only view and cancel their own appointments.
+- Database `UniqueConstraint` prevents duplicate bookings for the same time slot.
+- Containers run as a non-root user.
+
+## Future Improvements
+
+- Redis for rate limiting.
+- SMS appointment reminders.
+- Support for multiple service providers and staff members.
+- Portfolio gallery with image uploads.
+- Database backups.
