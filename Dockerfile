@@ -1,4 +1,3 @@
-# ---------- مرحله ۱: ساخت CSS (Tailwind) و جزیره‌ی React ----------
 FROM node:20-alpine AS assets
 WORKDIR /build/frontend
 COPY frontend/package*.json ./
@@ -7,7 +6,6 @@ COPY frontend/ ./
 COPY backend/ /build/backend/
 RUN npm run build
 
-# ---------- مرحله ۲: اپ جنگو ----------
 FROM python:3.12-slim
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
 WORKDIR /app
